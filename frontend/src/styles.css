@@ -1,1 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
+button:active {
+  transform: scale(0.8); /* Aplica la escala cuando se presiona el botón */
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  background-color: #171717;
+  border-radius: 25px;
+  color: white;
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+
+.form1 select {
+  background-color: transparent;
+  color: white;
+  border-radius: 25px;
+  padding: 5px;
+  margin-bottom: 1em;
+  width: 100%;
+  max-width: 400px;
+}
+.form1 select option {
+  color: black;
+}
+
+.form1 input {
+  background-color: transparent;
+  color: white;
+  border-radius: 25px;
+  padding: 5px;
+  margin-bottom: 1em;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form1 textarea {
+  background-color: transparent;
+  color: white;
+  padding: 15px;
+  margin-bottom: 1em;
+  width: 100%;
+  max-width: 400px;
+  height: 100px;
+}
+
+.form1 h2 {
+  text-align: center;
+  margin: 2em;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+}
+
+.form1 button {
+  margin: 1em;
+  max-width: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  width: auto;
+}
+
+.buttonCreate {
+  color: white;
+  background-color: rgb(19, 19, 243);
+}
+
+.buttonCreate:hover {
+  background-color: black;
+  color: white;
+}
+
+.buttonDelete {
+  color: white;
+  background-color: rgb(245, 45, 10);
+}
+
+.buttonDelete:hover {
+  background-color: black;
+  color: white;
+}

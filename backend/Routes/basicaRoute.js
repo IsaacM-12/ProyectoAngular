@@ -10,7 +10,26 @@ router.get("/", async (req, res) => {
     res.json(basicaEntries);
   } catch (error) {
     console.error("Error al consultar la colección basica en MongoDB:", error);
-    res.status(500).json({ error: "Error al consultar la colección basica en MongoDB" });
+    res
+      .status(500)
+      .json({ error: "Error al consultar la colección basica en MongoDB" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    // Crea un nuevo documento en la colección "basica" con los datos recibidos en el cuerpo de la petición
+    const newBasicaEntry = new Basica(req.body);
+    await newBasicaEntry.save();
+    res.json(newBasicaEntry);
+  } catch (error) {
+    console.error(
+      "Error al guardar la entrada en la colección basica en MongoDB:",
+      error
+    );
+    res.status(500).json({
+      error: "Error al guardar la entrada en la colección basica en MongoDB",
+    });
   }
 });
 

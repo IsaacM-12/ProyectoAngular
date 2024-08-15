@@ -12,4 +12,11 @@ export class BasicoService {
   getBasicaData(): Observable<any[]> {
     return this.http.get<any[]>(`${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`);
   }
+
+  createBasicaData(data: any): Observable<any> {
+    return this.http.post<any>(
+      `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`,
+      data
+    );
+  }
 }

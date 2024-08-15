@@ -1,10 +1,70 @@
-<div *ngIf="basicaData.length > 0; else noData">
+<div>
+  <div *ngIf="basicaData.length > 0; else noData">
     <ul>
-      <li *ngFor="let item of basicaData">{{ item | json }}</li>
-      <li>que duro</li>
+      <li *ngFor="let item of basicaData">
+        <strong>Name:</strong> {{ item.name }}, <strong>Years:</strong>
+        {{ item.years }}
+      </li>
     </ul>
   </div>
   <ng-template #noData>
     <p>No hay datos disponibles.</p>
   </ng-template>
-  
+
+  <form [formGroup]="formBasico" (submit)="send()" class="form1">
+    <div>
+      <h2>Formulario Basico</h2>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name" />
+        <div
+          *ngIf="
+            formBasico.get('name')?.invalid &&
+            (formBasico.get('name')?.dirty || formBasico.get('name')?.touched)
+          "
+        >
+          <p *ngIf="formBasico.get('name')?.errors?.['required']">
+            El nombre es requerido.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <label for="years">Years:</label>
+        <input type="number" id="years" formControlName="years" />
+        <div
+          *ngIf="
+            formBasico.get('years')?.invalid &&
+            (formBasico.get('years')?.dirty || formBasico.get('years')?.touched)
+          "
+        >
+          <p *ngIf="formBasico.get('years')?.errors?.['required']">
+            La edad es requerida.
+          </p>
+          <p *ngIf="formBasico.get('years')?.errors?.['min']">
+            Debe ser al menos 18 años.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <select>
+          <option value="" selected>Seleccione</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <div>
+        <button [disabled]="formBasico.invalid" class="buttonCreate">
+          Agregar
+        </button>
+        <button [disabled]="formBasico.invalid" class="buttonDelete">
+          Agregar
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div>Valido:{{ formBasico.valid | json }}</div>
+</div>

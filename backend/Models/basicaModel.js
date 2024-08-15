@@ -6,8 +6,8 @@ const Joi = require("joi");
  */
 const basicaSchema = new mongoose.Schema(
   {
-    nombre: { type: String, required: true },
-    edad: { type: Number, required: true },
+    name: { type: String, required: true },
+    years: { type: Number, required: true },
   },
   { strict: "throw" }
 );
@@ -19,8 +19,8 @@ const basicaSchema = new mongoose.Schema(
  */
 const validateBasica = (data) => {
   const schema = Joi.object({
-    nombre: Joi.string().min(1).max(255).required().label("Nombre"),
-    edad: Joi.number().integer().min(0).required().label("Edad"),
+    name: Joi.string().min(1).max(255).required().label("Name"),
+    years: Joi.number().integer().min(0).required().label("Years"),
   });
   return schema.validate(data);
 };
