@@ -1,6 +1,7 @@
 <div *ngIf="basicaData.length > 0; else noData">
     <ul>
       <li *ngFor="let item of basicaData">{{ item | json }}</li>
+      <li>que duro</li>
     </ul>
   </div>
   <ng-template #noData>
