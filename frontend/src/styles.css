@@ -1,7 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+/* ----------------------------------------------------- */
+/* cosas basicas de toda la app */
+/* ----------------------------------------------------- */
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
 button:active {
   transform: scale(0.8); /* Aplica la escala cuando se presiona el botón */
 }
+
+/* ----------------------------------------------------- */
+/* form perzonalizado numero 1  */
+/* ----------------------------------------------------- */
 
 .form1 {
   display: flex;
@@ -11,8 +24,8 @@ button:active {
   border-radius: 25px;
   color: white;
   margin: auto;
-  width: 60%;
   text-align: center;
+  padding: 0;
 }
 
 .form1 select {
@@ -21,7 +34,7 @@ button:active {
   border-radius: 25px;
   padding: 5px;
   margin-bottom: 1em;
-  width: 100%;
+  width: 90%;
   max-width: 400px;
 }
 .form1 select option {
@@ -32,10 +45,18 @@ button:active {
   background-color: transparent;
   color: white;
   border-radius: 25px;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 1em;
-  width: 100%;
+  width: 90%;
   max-width: 400px;
+}
+
+.form1 input::placeholder {
+  color: rgb(194, 170, 170);
+}
+
+.form1 input:focus::placeholder {
+  color: rgb(255, 255, 255);
 }
 
 .form1 textarea {
@@ -43,7 +64,7 @@ button:active {
   color: white;
   padding: 15px;
   margin-bottom: 1em;
-  width: 100%;
+  width: 90%;
   max-width: 400px;
   height: 100px;
 }
@@ -81,4 +102,39 @@ button:active {
 .buttonDelete:hover {
   background-color: black;
   color: white;
+}
+
+@media (min-width: 1000px) {
+  .form1 {
+    width: 700px;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 1000px) {
+  .form1 {
+    width: 80%;
+  }
+}
+
+@media (max-width: 300px) {
+  .form1 {
+    width: 98%;
+  }
+}
+
+/* ----------------------------------------------------- */
+/* para mensajes de error */
+/* ----------------------------------------------------- */
+
+.error p {
+  display: inline-block;
+  background: #ef665b;
+  border-radius: 8px;
+  padding: 10px 12px; /* Ajusta el padding para dar algo de espacio al texto */
+}
+.error p::before {
+  content: "⚠️"; /* Unicode para el ícono de exclamación */
+  display: inline-block;
+  margin-right: 8px; /* Espacio entre el ícono y el texto */
+  font-size: 1em; /* Ajusta el tamaño del ícono */
 }
