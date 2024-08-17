@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Basica } = require("../Models/basicaModel"); // Importa el modelo Basica
+const { Basica, validateBasica } = require("../Models/basicaModel"); // Importa el modelo Basica
 
 // Ruta para obtener todas las entradas de la colección "basica"
 router.get("/", async (req, res) => {
@@ -18,17 +18,19 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    // Crea un nuevo documento en la colección "basica" con los datos recibidos en el cuerpo de la petición
+    const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
+    if (error) return res.status(400).json({ message: "Datos inválidos" });
+
     const newBasicaEntry = new Basica(req.body);
     await newBasicaEntry.save();
-    res.json(newBasicaEntry);
+    res.status(201).json({ message: "Se logro correctamente" });
   } catch (error) {
     console.error(
       "Error al guardar la entrada en la colección basica en MongoDB:",
       error
     );
     res.status(500).json({
-      error: "Error al guardar la entrada en la colección basica en MongoDB",
+      message: "Error al guardar la entrada en la colección basica en MongoDB",
     });
   }
 });

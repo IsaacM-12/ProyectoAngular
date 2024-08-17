@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar 
 })
 export class BasicoComponent implements OnInit {
   basicaData: any[] = []; // Variable para almacenar los datos
+  formResponse: any[] = []; // Variable para almacenar los datos
   public formBasico!: FormGroup;
 
   constructor(
@@ -43,11 +44,12 @@ export class BasicoComponent implements OnInit {
   send(): any {
     console.log(this.formBasico.value);
     this.basicoService.createBasicaData(this.formBasico.value).subscribe(
-      (data: any) => {
-        console.log('Data:', data);
+      (response: any) => {
+        this.formResponse = response.message;
       },
       (error: any) => {
         console.error('Error al enviar los datos:', error);
+        this.formResponse = error.error.message;
       }
     );
   }

@@ -20,7 +20,7 @@ const basicaSchema = new mongoose.Schema(
 const validateBasica = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(1).max(255).required().label("Name"),
-    years: Joi.number().integer().min(0).required().label("Years"),
+    years: Joi.number().integer().min(18).required().label("Years"),
   });
   return schema.validate(data);
 };
