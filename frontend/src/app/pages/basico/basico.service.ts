@@ -19,4 +19,10 @@ export class BasicoService {
       data
     );
   }
+
+  deleteBasicaData(id: string): Observable<any> {
+    return this.http.delete<any>(
+      `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}/${id}`
+    );
+  }
 }

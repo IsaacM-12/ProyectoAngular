@@ -21,11 +21,11 @@ export class BasicoComponent implements OnInit {
     private basicoService: BasicoService
   ) {}
 
-  ngOnInit(): void {
+  private loadData(): void {
     this.basicoService.getBasicaData().subscribe(
       (data: any[]) => {
-        // Mapea los datos para guardar solo los campos 'name' y 'years'
         this.basicaData = data.map((item) => ({
+          id: item._id,
           name: item.name,
           years: item.years,
         }));
@@ -34,6 +34,22 @@ export class BasicoComponent implements OnInit {
         console.error('Error al obtener los datos:', error);
       }
     );
+  }
+
+  deleteBasicaData(id: string): void {
+    this.basicoService.deleteBasicaData(id).subscribe(
+      (response: any) => {
+        console.log('Datos eliminados:', response);
+        this.loadData();
+      },
+      (error: any) => {
+        console.error('Error al eliminar los datos:', error);
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.loadData();
 
     this.formBasico = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -46,6 +62,7 @@ export class BasicoComponent implements OnInit {
     this.basicoService.createBasicaData(this.formBasico.value).subscribe(
       (response: any) => {
         this.formResponse = response.message;
+        this.loadData();
       },
       (error: any) => {
         console.error('Error al enviar los datos:', error);

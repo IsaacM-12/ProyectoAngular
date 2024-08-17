@@ -35,4 +35,27 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Obtener el ID del parámetro de la URL
+
+    const result = await Basica.findByIdAndDelete(id); // Eliminar el documento por ID
+
+    if (!result) {
+      return res.status(404).json({ message: "Documento no encontrado" });
+    }
+
+    res.status(200).json({ message: "Documento eliminado correctamente" });
+  } catch (error) {
+    console.error(
+      "Error al eliminar el documento de la colección basica en MongoDB:",
+      error
+    );
+    res.status(500).json({
+      message:
+        "Error al eliminar el documento de la colección basica en MongoDB",
+    });
+  }
+});
+
 module.exports = router;

@@ -1,19 +1,22 @@
-<div class="red">
+<div class="basicoStyle">
   <div *ngIf="basicaData.length > 0; else noData">
     <ul>
       <li *ngFor="let item of basicaData">
         <strong>Name:</strong> {{ item.name }}, <strong>Years:</strong>
         {{ item.years }}
+        <button (click)="deleteBasicaData(item.id)" class="btn btn-danger m-2">
+          Delete
+        </button>
       </li>
     </ul>
   </div>
   <ng-template #noData>
-    <p>No hay datos disponibles.</p>
+    <p>No data available.</p>
   </ng-template>
 
   <form [formGroup]="formBasico" (submit)="send()" class="form1">
     <div>
-      <h2>Formulario Basico</h2>
+      <h2>Basic Form</h2>
       <div>
         <input
           placeholder="Name"
@@ -29,17 +32,17 @@
           class="error"
         >
           <p *ngIf="formBasico.get('name')?.errors?.['required']">
-            El nombre es requerido.
+            Name is required.
           </p>
         </div>
       </div>
 
       <div>
         <input
+          placeholder="Years"
           type="number"
           id="years"
           formControlName="years"
-          placeholder="years"
         />
         <div
           *ngIf="
@@ -49,35 +52,36 @@
           class="error"
         >
           <p *ngIf="formBasico.get('years')?.errors?.['required']">
-            La edad es requerida.
+            Age is required.
           </p>
           <p *ngIf="formBasico.get('years')?.errors?.['min']">
-            Debe ser al menos 18 años.
+            Must be at least 18 years old.
           </p>
         </div>
       </div>
 
       <div>
-        <!-- Muestra el div de éxito si el formulario es válido -->
-        <div class="succes" *ngIf="formBasico.valid">
-          <p>Ya se puede enviar.</p>
-        </div>
+        <select>
+          <option>yes</option>
+          <option>no</option>
+        </select>
+      </div>
 
-        <!-- Muestra el div de error si el formulario no es válido -->
+      <div>
+        <!-- Show the error div if the form is invalid -->
         <div class="error" *ngIf="!formBasico.valid">
-          <p>Falta algo.</p>
+          <p>Not ready to send</p>
         </div>
       </div>
 
       <div>
-        <button [disabled]="formBasico.invalid" class="buttonCreate">
-          Agregar
-        </button>
-        <button [disabled]="formBasico.invalid" class="buttonDelete">
-          Agregar
+        <button [disabled]="formBasico.invalid" class="buttonCreate m-3">
+          Create
         </button>
       </div>
-      <span>{{formResponse}}</span>
+      <div *ngIf="formResponse.length > 0" class="info">
+        <p>{{ formResponse }}</p>
+      </div>
     </div>
   </form>
 </div>
