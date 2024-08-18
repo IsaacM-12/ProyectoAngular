@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
 
     const newBasicaEntry = new Basica(req.body);
     await newBasicaEntry.save();
-    res.status(201).json({ message: "Se logro correctamente" });
+    res.status(201).json({ message: "Se creo basica from correctamente" });
   } catch (error) {
     console.error(
       "Error al guardar la entrada en la colección basica en MongoDB:",

@@ -136,6 +136,7 @@ button:active {
   background: #ef665b;
   border-radius: 8px;
   padding: 10px 12px;
+  max-width: 80%;
 }
 .error p::before {
   content: "";
@@ -155,6 +156,7 @@ button:active {
   background: #84d65a;
   border-radius: 8px;
   padding: 10px 12px;
+  max-width: 80%;
 }
 .succes p::before {
   content: "";
@@ -174,6 +176,7 @@ button:active {
   background: #509af8;
   border-radius: 8px;
   padding: 10px 12px;
+  max-width: 80%;
 }
 .info p::before {
   content: "";

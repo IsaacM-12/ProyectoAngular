@@ -9,20 +9,43 @@ import { API_ROUTES } from '../../config/api.routes';
 export class BasicoService {
   constructor(private http: HttpClient) {}
 
-  getBasicaData(): Observable<any[]> {
-    return this.http.get<any[]>(`${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`);
+  getData(url: string): Observable<any[]> {
+    return this.http.get<any[]>(url);
   }
 
-  createBasicaData(data: any): Observable<any> {
-    return this.http.post<any>(
-      `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`,
-      data
-    );
+  postData(data: any, url: string): Observable<any> {
+    return this.http.post<any>(url, data);
   }
 
-  deleteBasicaData(id: string): Observable<any> {
-    return this.http.delete<any>(
-      `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}/${id}`
-    );
+  deleteData(id: string, url: string): Observable<any> {
+    return this.http.delete<any>(`${url}/${id}`);
+  }
+
+  createData(data: any, url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.postData(data, url).subscribe(
+        (response: any) => {
+          resolve(response.message);
+        },
+        (error: any) => {
+          console.error('Error al enviar los datos:', error);
+          reject(error);
+        }
+      );
+    });
+  }
+
+  deleteDataByID(id: string, url: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.deleteData(id, url).subscribe(
+        (response: any) => {
+          resolve(response.message);
+        },
+        (error: any) => {
+          console.error('Error al eliminar los datos:', error);
+          reject(error);
+        }
+      );
+    });
   }
 }

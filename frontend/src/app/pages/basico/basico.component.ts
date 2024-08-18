@@ -3,6 +3,8 @@ import { BasicoService } from './basico.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar esto
+import { API_ROUTES } from '../../config/api.routes';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-basico',
@@ -13,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar 
 })
 export class BasicoComponent implements OnInit {
   basicaData: any[] = []; // Variable para almacenar los datos
-  formResponse: any[] = []; // Variable para almacenar los datos
+  responseMessage: string = '';
   public formBasico!: FormGroup;
 
   constructor(
@@ -21,31 +23,44 @@ export class BasicoComponent implements OnInit {
     private basicoService: BasicoService
   ) {}
 
-  private loadData(): void {
-    this.basicoService.getBasicaData().subscribe(
-      (data: any[]) => {
-        this.basicaData = data.map((item) => ({
-          id: item._id,
-          name: item.name,
-          years: item.years,
-        }));
-      },
-      (error: any) => {
-        console.error('Error al obtener los datos:', error);
-      }
-    );
+  loadData(): void {
+    this.basicoService
+      .getData(`${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`)
+      .subscribe(
+        (data: any[]) => {
+          this.basicaData = data.map((item) => ({
+            id: item._id,
+            name: item.name,
+            years: item.years,
+          }));
+        },
+        (error: any) => {
+          console.error('Error al obtener los datos:', error);
+        }
+      );
   }
 
-  deleteBasicaData(id: string): void {
-    this.basicoService.deleteBasicaData(id).subscribe(
-      (response: any) => {
-        console.log('Datos eliminados:', response);
-        this.loadData();
-      },
-      (error: any) => {
-        console.error('Error al eliminar los datos:', error);
-      }
-    );
+  async deleteBasicaData(id: string): Promise<void> {
+    try {
+      this.responseMessage = await this.basicoService.deleteDataByID(
+        id,
+        `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`
+      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Eliminado',
+        text: this.responseMessage,
+      });
+      this.loadData();
+    } catch (error) {
+      this.responseMessage =
+        (error as any).error?.message || 'Error desconocido';
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: this.responseMessage,
+      });
+    }
   }
 
   ngOnInit(): void {
@@ -53,21 +68,30 @@ export class BasicoComponent implements OnInit {
 
     this.formBasico = this.formBuilder.group({
       name: ['', [Validators.required]],
-      years: ['', [Validators.required, Validators.min(18)]],
+      years: ['', [Validators.required, Validators.min(10)]],
     });
   }
 
-  send(): any {
-    console.log(this.formBasico.value);
-    this.basicoService.createBasicaData(this.formBasico.value).subscribe(
-      (response: any) => {
-        this.formResponse = response.message;
-        this.loadData();
-      },
-      (error: any) => {
-        console.error('Error al enviar los datos:', error);
-        this.formResponse = error.error.message;
-      }
-    );
+  async send(): Promise<void> {
+    try {
+      this.responseMessage = await this.basicoService.createData(
+        this.formBasico.value,
+        `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`
+      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: this.responseMessage,
+      });
+      this.loadData();
+    } catch (error) {
+      this.responseMessage =
+        (error as any).error?.message || 'Error desconocido';
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: this.responseMessage,
+      });
+    }
   }
 }

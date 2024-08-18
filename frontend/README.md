@@ -15,6 +15,8 @@
 
 - Node (Versión v20.14.0)
 - Angular (v18.2.0)
+- sweetalert2
+- bootstrap (5.3.3)
 
 ## Instrucciones para Iniciar la Aplicación
 
