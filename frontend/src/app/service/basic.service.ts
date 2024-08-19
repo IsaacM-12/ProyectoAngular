@@ -5,7 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class BasicoService {
+export class BasicService {
+  /**
+   *
+   * @param http servicio de HttpClient
+   *
+   */
   constructor(private http: HttpClient) {}
 
   getData(url: string): Observable<any[]> {
@@ -21,10 +26,15 @@ export class BasicoService {
   }
 
   updateData(id: string, data: any, url: string): Observable<any> {
-    console.log('data:', data);
     return this.http.put<any>(`${url}/${id}`, data);
   }
 
+  /**
+   * 
+   * @param data datos a enviar
+   * @param url dirección de la API del backend
+   * @returns promesa con el mensaje de respuesta
+   */
   createData(data: any, url: string): Promise<string> {
     return new Promise((resolve, reject) => {
       this.postData(data, url).subscribe(
@@ -38,7 +48,12 @@ export class BasicoService {
       );
     });
   }
-
+  /**
+   * 
+   * @param id del dato a eliminar
+   * @param url dirección de la API del backend
+   * @returns promesa con el mensaje de respuesta
+   */
   deleteDataByID(id: string, url: string): Promise<string> {
     return new Promise((resolve, reject) => {
       this.deleteData(id, url).subscribe(

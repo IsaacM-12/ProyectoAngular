@@ -11,6 +11,7 @@ body {
 button:active {
   transform: scale(0.8); /* Aplica la escala cuando se presiona el botón */
 }
+
 /* ----------------------------------------------------- */
 /* form perzonalizado numero 1  */
 /* ----------------------------------------------------- */
@@ -188,4 +189,10 @@ button:active {
   background-size: contain;
   background-repeat: no-repeat;
   transform: translateY(-2px);
+}
+
+
+.swal {
+  background-color: #171717;
+  color: white;
 }

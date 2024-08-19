@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BasicoService } from './basico.service';
+import { BasicService } from '../../service/basic.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar esto
@@ -20,7 +20,7 @@ export class BasicoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private basicoService: BasicoService
+    private basicoService: BasicService
   ) {}
 
   loadData(): void {
@@ -42,16 +42,35 @@ export class BasicoComponent implements OnInit {
 
   async deleteBasicaData(id: string): Promise<void> {
     try {
-      this.responseMessage = await this.basicoService.deleteDataByID(
-        id,
-        `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`
-      );
-      Swal.fire({
-        icon: 'success',
-        title: 'Eliminado',
-        text: this.responseMessage,
+      // Mostrar confirmación antes de eliminar
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'No podrás revertir esta acción.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
       });
-      this.loadData();
+
+      // Si el usuario confirma la eliminación
+      if (result.isConfirmed) {
+        this.responseMessage = await this.basicoService.deleteDataByID(
+          id,
+          `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`
+        );
+
+        // Mostrar mensaje de éxito
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado',
+          text: this.responseMessage,
+        });
+
+        // Recargar datos
+        this.loadData();
+      }
     } catch (error) {
       this.responseMessage =
         (error as any).error?.message || 'Error desconocido';
@@ -68,7 +87,7 @@ export class BasicoComponent implements OnInit {
 
     this.formBasico = this.formBuilder.group({
       name: ['', [Validators.required]],
-      years: ['', [Validators.required, Validators.min(10)]],
+      years: ['', [Validators.required, Validators.min(18)]],
     });
   }
 
@@ -142,6 +161,7 @@ export class BasicoComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
+          text: this.responseMessage,
         });
       }
     }
