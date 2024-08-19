@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { BasicoComponent } from './pages/basico/basico.component';
 import { ChargingComponent } from './pages/charging/charging.component';
+import { NavBarComponent } from './navigation/navBar/navBar.component';
 
 export const routes: Routes = [
   { path: 'basico', component: BasicoComponent },
