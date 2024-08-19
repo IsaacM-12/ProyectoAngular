@@ -15,14 +15,19 @@ import Swal from 'sweetalert2';
 })
 export class BasicoComponent implements OnInit {
   basicaData: any[] = []; // Variable para almacenar los datos
-  responseMessage: string = '';
-  public formBasico!: FormGroup;
+  responseMessage: string = ''; // Variable para almacenar el mensaje de respuesta de la API
+  public formBasico!: FormGroup; // Variable para el formulario de datos básicos
 
   constructor(
     private formBuilder: FormBuilder,
     private basicoService: BasicService
   ) {}
 
+  /**
+   *
+   * función para cargar los datos de la API
+   * @returns void
+   */
   loadData(): void {
     this.basicoService
       .getData(`${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`)
@@ -40,6 +45,12 @@ export class BasicoComponent implements OnInit {
       );
   }
 
+  /**
+   *
+   * función para eliminar los datos básicos por ID
+   * @param id del dato a eliminar
+   * @returns promesa con el mensaje de respuesta
+   */
   async deleteBasicaData(id: string): Promise<void> {
     try {
       // Mostrar confirmación antes de eliminar
@@ -82,6 +93,10 @@ export class BasicoComponent implements OnInit {
     }
   }
 
+  /**
+   * función para cargar los datos de la API al iniciar el componente
+   * @returns void
+   */
   ngOnInit(): void {
     this.loadData();
 
@@ -91,6 +106,11 @@ export class BasicoComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * función para enviar los datos básicos
+   * @returns promesa con el mensaje de respuesta
+   */
   async send(): Promise<void> {
     try {
       this.responseMessage = await this.basicoService.createData(
@@ -114,6 +134,12 @@ export class BasicoComponent implements OnInit {
     }
   }
 
+  /**
+   *
+   * función para editar los datos básicos
+   * @param item datos a editar
+   * @returns promesa con el mensaje de respuesta
+   */
   async updateBasicaData(item: any): Promise<void> {
     // Inicializa el formulario con los datos actuales
     this.formBasico.setValue({
