@@ -12,12 +12,9 @@ app.use(cors());
 const connection = require("./db");
 connection();
 
-
 // Configuración del puerto
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
-
 
 // ---------------------------------------------------------------------
 // borrar

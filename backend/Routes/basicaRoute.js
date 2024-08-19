@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const { Basica, validateBasica } = require("../Models/basicaModel"); // Importa el modelo Basica
 
-// Ruta para obtener todas las entradas de la colección "basica"
+/**
+ * metodo get para obtener la informacion de la basica
+ * @returns {object} 200 - Array de objetos de la colección basica
+ */
 router.get("/", async (req, res) => {
   try {
     // Busca todos los documentos en la colección "basica"
@@ -16,11 +19,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+/**
+ * metodo post para guardar la informacion de la basica
+ * @returns message info - Mensaje de información sobre que paso al guardar
+ */
 router.post("/", async (req, res) => {
   try {
     const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
     if (error)
-      return res.status(400).json({ message: error.details[0].message });
+      return res
+        .status(400)
+        .json({ message: error.details[0].message || "Datos inválidos" });
 
     const newBasicaEntry = new Basica(req.body);
     await newBasicaEntry.save();
@@ -36,41 +45,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.put("/:id", async (req, res) => {
-//   try {
-//     console.log("req.body", req.body);
-//     console.log("req.params", req.params);
-//     const { id } = req.params; // Obtener el ID del parámetro de la URL
-
-//     const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
-//     if (error)
-//       return res.status(400).json({ message: error.details[0].message });
-
-//     const result = await Basica.findByIdAndUpdate(id, req.body, {
-//       new: true,
-//     }); // Buscar y actualizar el documento por ID
-
-//     if (!result) {
-//       return res.status(404).json({ message: "Documento no encontrado" });
-//     }
-
-//     res.status(200).json({ message: "Documento actualizado correctamente" });
-//   } catch (error) {
-//     console.error(
-//       "Error al actualizar el documento de la colección basica en MongoDB:",
-//       error
-//     );
-//     res.status(500).json({
-//       message:
-//         "Error al actualizar el documento de la colección basica en MongoDB",
-//     });
-//   }
-// });
-router.put('/:id', async (req, res) => {
+/**
+ * metodo put para actualizar la informacion de la basica
+ * @returns message info - Mensaje de información sobre que paso al actualizar
+ */
+router.put("/:id", async (req, res) => {
   try {
     const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
     if (error) {
-      return res.status(400).json({ message: error.details[0].message || 'Datos inválidos' });
+      return res
+        .status(400)
+        .json({ message: error.details[0].message || "Datos inválidos" });
     }
 
     // Buscar y actualizar la entrada con el id proporcionado
@@ -82,18 +67,29 @@ router.put('/:id', async (req, res) => {
 
     // Verificar si se encontró el documento
     if (!updatedBasicaEntry) {
-      return res.status(404).json({ message: 'Entrada no encontrada' });
+      return res.status(404).json({ message: "Entrada no encontrada" });
     }
 
-    res.status(200).json({ message: 'Entrada actualizada correctamente', data: updatedBasicaEntry });
+    res.status(200).json({
+      message: "Entrada actualizada correctamente",
+      data: updatedBasicaEntry,
+    });
   } catch (error) {
-    console.error('Error al actualizar la entrada en la colección basica en MongoDB:', error);
+    console.error(
+      "Error al actualizar la entrada en la colección basica en MongoDB:",
+      error
+    );
     res.status(500).json({
-      message: 'Error al actualizar la entrada en la colección basica en MongoDB',
+      message:
+        "Error al actualizar la entrada en la colección basica en MongoDB",
     });
   }
 });
 
+/**
+ * metodo delete para eliminar la informacion de la basica por id
+ * @returns message info - Mensaje de información sobre que paso al eliminar
+ */
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params; // Obtener el ID del parámetro de la URL
