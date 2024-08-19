@@ -94,4 +94,56 @@ export class BasicoComponent implements OnInit {
       });
     }
   }
+
+  async updateBasicaData(item: any): Promise<void> {
+    // Inicializa el formulario con los datos actuales
+    this.formBasico.setValue({
+      name: item.name,
+      years: item.years,
+    });
+
+    // Muestra el SweetAlert2 con el formulario de edición
+    const { value: formValues } = await Swal.fire({
+      title: 'Actualizar Datos',
+      html: `
+        <form id="updateForm" class="swal2-form">
+          <input id="nameupdate" class="swal2-input" placeholder="Name" value="${item.name}" />
+          <input id="yearsupdate" class="swal2-input" type="number" placeholder="Years" value="${item.years}" />
+        </form>
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        return {
+          name: (document.getElementById('nameupdate') as HTMLInputElement)
+            .value,
+          years: (document.getElementById('yearsupdate') as HTMLInputElement)
+            .value,
+        };
+      },
+    });
+
+    if (formValues) {
+      try {
+        this.responseMessage = await this.basicoService
+          .updateData(
+            item.id,
+            formValues,
+            `${API_ROUTES.BASE_URL}${API_ROUTES.BASICA}`
+          )
+          .toPromise();
+        Swal.fire({
+          icon: 'success',
+          title: 'Actualizado',
+        });
+        this.loadData();
+      } catch (error) {
+        this.responseMessage =
+          (error as any).error?.message || 'Error desconocido';
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+        });
+      }
+    }
+  }
 }

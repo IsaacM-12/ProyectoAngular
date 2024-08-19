@@ -19,7 +19,8 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
-    if (error) return res.status(400).json({ message: "Datos inválidos" });
+    if (error)
+      return res.status(400).json({ message: error.details[0].message });
 
     const newBasicaEntry = new Basica(req.body);
     await newBasicaEntry.save();
@@ -31,6 +32,64 @@ router.post("/", async (req, res) => {
     );
     res.status(500).json({
       message: "Error al guardar la entrada en la colección basica en MongoDB",
+    });
+  }
+});
+
+// router.put("/:id", async (req, res) => {
+//   try {
+//     console.log("req.body", req.body);
+//     console.log("req.params", req.params);
+//     const { id } = req.params; // Obtener el ID del parámetro de la URL
+
+//     const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
+//     if (error)
+//       return res.status(400).json({ message: error.details[0].message });
+
+//     const result = await Basica.findByIdAndUpdate(id, req.body, {
+//       new: true,
+//     }); // Buscar y actualizar el documento por ID
+
+//     if (!result) {
+//       return res.status(404).json({ message: "Documento no encontrado" });
+//     }
+
+//     res.status(200).json({ message: "Documento actualizado correctamente" });
+//   } catch (error) {
+//     console.error(
+//       "Error al actualizar el documento de la colección basica en MongoDB:",
+//       error
+//     );
+//     res.status(500).json({
+//       message:
+//         "Error al actualizar el documento de la colección basica en MongoDB",
+//     });
+//   }
+// });
+router.put('/:id', async (req, res) => {
+  try {
+    const { error } = validateBasica(req.body); // Validar usando Joi o Mongoose
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message || 'Datos inválidos' });
+    }
+
+    // Buscar y actualizar la entrada con el id proporcionado
+    const updatedBasicaEntry = await Basica.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true } // `new: true` devuelve el documento actualizado
+    );
+
+    // Verificar si se encontró el documento
+    if (!updatedBasicaEntry) {
+      return res.status(404).json({ message: 'Entrada no encontrada' });
+    }
+
+    res.status(200).json({ message: 'Entrada actualizada correctamente', data: updatedBasicaEntry });
+  } catch (error) {
+    console.error('Error al actualizar la entrada en la colección basica en MongoDB:', error);
+    res.status(500).json({
+      message: 'Error al actualizar la entrada en la colección basica en MongoDB',
     });
   }
 });

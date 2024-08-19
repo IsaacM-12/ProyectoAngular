@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_ROUTES } from '../../config/api.routes';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +18,11 @@ export class BasicoService {
 
   deleteData(id: string, url: string): Observable<any> {
     return this.http.delete<any>(`${url}/${id}`);
+  }
+
+  updateData(id: string, data: any, url: string): Observable<any> {
+    console.log('data:', data);
+    return this.http.put<any>(`${url}/${id}`, data);
   }
 
   createData(data: any, url: string): Promise<string> {
