@@ -11,7 +11,6 @@ body {
 button:active {
   transform: scale(0.8); /* Aplica la escala cuando se presiona el botón */
 }
-
 /* ----------------------------------------------------- */
 /* form perzonalizado numero 1  */
 /* ----------------------------------------------------- */
