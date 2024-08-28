@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Basica, validateBasica } = require("../Models/basicaModel"); // Importa el modelo Basica
+const { BasicaModel, validateBasica } = require("../Models/basicaModel"); // Importa el modelo Basica
 
 /**
  * metodo get para obtener la informacion de la basica
@@ -8,7 +8,7 @@ const { Basica, validateBasica } = require("../Models/basicaModel"); // Importa 
 router.get("/", async (req, res) => {
   try {
     // Busca todos los documentos en la colección "basica"
-    const basicaEntries = await Basica.find();
+    const basicaEntries = await BasicaModel.find();
     // Devuelve los documentos como JSON
     res.json(basicaEntries);
   } catch (error) {
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ message: error.details[0].message || "Datos inválidos" });
 
-    const newBasicaEntry = new Basica(req.body);
+    const newBasicaEntry = new BasicaModel(req.body);
     await newBasicaEntry.save();
     res.status(201).json({ message: "Se creo basica from correctamente" });
   } catch (error) {
@@ -59,7 +59,7 @@ router.put("/:id", async (req, res) => {
     }
 
     // Buscar y actualizar la entrada con el id proporcionado
-    const updatedBasicaEntry = await Basica.findByIdAndUpdate(
+    const updatedBasicaEntry = await BasicaModel.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true } // `new: true` devuelve el documento actualizado
@@ -94,7 +94,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params; // Obtener el ID del parámetro de la URL
 
-    const result = await Basica.findByIdAndDelete(id); // Eliminar el documento por ID
+    const result = await BasicaModel.findByIdAndDelete(id); // Eliminar el documento por ID
 
     if (!result) {
       return res.status(404).json({ message: "Documento no encontrado" });

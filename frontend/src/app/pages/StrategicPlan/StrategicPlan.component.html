@@ -1,0 +1,95 @@
+<div class="StrategicPlanStyle">
+  <h1>Strategic Plan</h1>
+  <div *ngIf="strategicPlanData.length > 0; else noData">
+    <div *ngFor="let item of strategicPlanData">
+      <strong>Name:</strong> {{ item.name }}, <strong>startDate</strong>
+      {{ item.startDate }}, <strong>endDate</strong> {{ item.endDate }},
+      <strong>mission</strong> {{ item.mission }}, <strong>vision</strong>
+      {{ item.vision }}
+    </div>
+  </div>
+  <ng-template #noData>
+    <p>No data available.</p>
+  </ng-template>
+
+  <div class="form1-card">
+    <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
+      <div>
+        <h2>Strategic Plan Form</h2>
+        <div>
+          <input
+            placeholder="Name"
+            type="text"
+            id="name"
+            formControlName="name"
+          />
+          <div
+            *ngIf="
+              formStrategicPlan.get('name')?.invalid &&
+              (formStrategicPlan.get('name')?.dirty ||
+                formStrategicPlan.get('name')?.touched)
+            "
+            class="error"
+          >
+            <p *ngIf="formStrategicPlan.get('name')?.errors?.['required']">
+              Name is required.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <input
+            placeholder="mission"
+            type="text"
+            id="mission"
+            formControlName="mission"
+          />
+        </div>
+
+        <div>
+          <input
+            placeholder="vision"
+            type="text"
+            id="vision"
+            formControlName="vision"
+          />
+        </div>
+
+        <div>
+          <div>
+            <label for="endDate"> End Date: </label>
+          </div>
+          <input
+            placeholder="endDate"
+            type="date"
+            id="endDate"
+            formControlName="endDate"
+          />
+          <div
+            *ngIf="
+              formStrategicPlan.get('endDate')?.invalid &&
+              (formStrategicPlan.get('endDate')?.dirty ||
+                formStrategicPlan.get('endDate')?.touched)
+            "
+            class="error"
+          >
+            <p *ngIf="formStrategicPlan.get('endDate')?.errors?.['required']">
+              endDate is required.
+            </p>
+          </div>
+        </div>
+
+        <!-- Show the error div if the form is invalid -->
+        <div class="badInfo" *ngIf="!formStrategicPlan.valid">
+          <p>Not ready to send</p>
+        </div>
+        <button type="submit" class="buttonCreate m-3">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card-perzonnalized1 m-4">
+    <div class="shadowTopRight"></div>
+    <div class="shadowButtomLeft"></div>
+  </div>
+</div>

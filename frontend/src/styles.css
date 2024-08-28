@@ -12,12 +12,56 @@ button:active {
 }
 
 /* ----------------------------------------------------- */
+/* card perzonalizada numero 1 */
+/* ----------------------------------------------------- */
+
+.card-perzonnalized1 {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  background-color: #171717;
+  border-radius: 20px;
+  margin: auto;
+}
+.card-perzonnalized1 .shadowTopRight {
+  position: absolute;
+  border-radius: 20px;
+  right: -15px;
+  bottom: 20px;
+  height: 100px;
+  width: 150px;
+  background: linear-gradient(
+    to top right,
+    transparent 0%,
+    rgba(255, 0, 255, 1) 70%,
+    rgba(255, 0, 255, 1) 100%
+  );
+  z-index: -1; /* Asegúrate de que la sombra esté detrás del contenido */
+}
+
+.card-perzonnalized1 .shadowButtomLeft {
+  position: absolute;
+  border-radius: 20px;
+  left: -15px;
+  top: 20px;
+  height: 100px;
+  width: 150px;
+  background: linear-gradient(
+    to bottom left,
+    transparent 0%,
+    rgb(0, 60, 255) 70%,
+    rgb(0, 60, 255) 100%
+  );
+  z-index: -1; /* Asegúrate de que la sombra esté detrás del contenido */
+}
+
+/* ----------------------------------------------------- */
 /* form perzonalizado numero 1  */
 /* ----------------------------------------------------- */
 .form1-card {
   margin: auto;
   padding: 0;
-  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+  background-image: linear-gradient(163deg, #ff00ff 0%, #3700ff 100%);
   border-radius: 20px;
 }
 
@@ -59,6 +103,13 @@ button:active {
 }
 .form1 input:focus {
   box-shadow: none;
+}
+
+/* Opcional: Para un enfoque más avanzado */
+.form1 input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(
+    1
+  ); /* Intenta invertir el color del icono, pero puede no funcionar en todos los navegadores */
 }
 
 .form1 input::placeholder {

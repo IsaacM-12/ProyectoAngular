@@ -29,4 +29,4 @@ const validateBasica = (data) => {
 const Basica = mongoose.model("Basica", basicaSchema);
 
 // Exportación del modelo y la función de validación
-module.exports = { Basica, validateBasica };
+module.exports = { BasicaModel: Basica, validateBasica };
