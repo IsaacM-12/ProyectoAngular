@@ -1,10 +1,19 @@
 :host {
   display: block;
 }
+
+:root {
+  --color2: #3700ff;
+  --color3: #ff00ff;
+  --basicBackground: #171717;
+  --shadowColor: #131212;
+}
+
 .StrategicPlanStyle {
   background-color: var(--basicBackground);
   color: white;
   min-height: calc(100vh - 52px);
+  padding: 20px 50px;
 }
 
 .StrategicContainer {
@@ -17,52 +26,44 @@
 
 .rowStrategicPlan {
   display: flex;
-  justify-content: space-between; 
-  width: 100%; 
-  margin-bottom: 10px; 
-  min-height: 5rem;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  min-height: 10rem;
 }
 
 .title,
 .value {
-  width: 50%; 
-  margin: 0 10px; 
-  box-sizing: border-box; 
+  width: 50%;
+  margin: 0;
+  padding: 0 5%;
+  box-sizing: border-box;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: bold;
-  color: red;
+  /* background: linear-gradient(190deg, var(--color2), var(--color3)); */
+  /* background-color: var(--color2); */
   text-align: center; /* Centra el texto en la columna de título */
+  overflow-wrap: break-word;
+  border-radius: 22px;
+  border: 1px solid var(--color2);
 }
 
 .value {
   font-size: 1rem;
   color: rgb(241, 241, 241);
   text-align: center; /* Centra el texto en la columna de valor */
+  overflow-wrap: break-word;
 }
 
-/* .StrategicContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+.cuadro1 {
+  width: 100%;
+  background-color: rgb(29, 25, 25);
 }
 
-.title {
-  display: inline-flex;
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: red;
-  width: 50%;
+.cuadro2 {
+  width: 100%;
+  background-color: rgb(11, 12, 11);
 }
-.value {
-  display: inline-flex;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  color: rgb(241, 241, 241);
-  width: 50%;
-} */

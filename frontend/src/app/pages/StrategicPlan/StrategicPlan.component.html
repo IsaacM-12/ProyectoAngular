@@ -24,71 +24,6 @@
   <div *ngIf="isEditMode || isFormVisible">
     <button (click)="resetForm()" class="buttonBack">Back to plans</button>
 
-    <div *ngIf="isEditMode" class="m-4">
-      <h2>Plan</h2>
-      <div *ngFor="let item of strategicPlanData">
-        <div *ngIf="item.id === currentPlanId" class="StrategicContainer">
-          <div>
-            <button (click)="setFormVisibility(true)" class="buttonEdit m-2">
-              Edit
-            </button>
-            <button (click)="navigateToFodaMeca()" class="buttonAdd m-2">
-              Foda Meca
-            </button>
-          </div>
-          <div class="rowStrategicPlan">
-            <div class="title">
-              <span>Name</span>
-            </div>
-            <div class="value">
-              {{ item.name }}
-            </div>
-          </div>
-          <div class="rowStrategicPlan">
-            <div class="value">
-              {{ item.startDate }}
-            </div>
-            <div class="title">
-              <span>Start Date</span>
-            </div>
-          </div>
-
-          <div class="rowStrategicPlan">
-            <div class="title">
-              <span>End Date</span>
-            </div>
-            <div class="value">
-              {{ item.endDate }}
-            </div>
-          </div>
-          <div class="rowStrategicPlan">
-            <div class="value">
-              {{ item.mission }}
-            </div>
-            <div class="title">
-              <span>Mission</span>
-            </div>
-          </div>
-          <div class="rowStrategicPlan">
-            <div class="title">
-              <span>Vision</span>
-            </div>
-            <div class="value">
-              {{ item.vision }}
-            </div>
-          </div>
-          <div class="rowStrategicPlan">
-            <div class="value">
-              {{ item.values }}
-            </div>
-            <div class="title">
-              <span>Values</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div *ngIf="isFormVisible" class="form1-card">
       <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
         <div>
@@ -173,6 +108,81 @@
           <button type="submit" class="buttonCreate m-3">Submit</button>
         </div>
       </form>
+    </div>
+
+    <div *ngIf="isEditMode" class="m-4">
+      <div *ngFor="let item of strategicPlanData">
+        <div *ngIf="item.id === currentPlanId" class="StrategicContainer">
+          <div>
+            <button (click)="setFormVisibility(true)" class="buttonEdit m-5">
+              Edit
+            </button>
+            <button (click)="navigateToFodaMeca()" class="buttonAdd m-5">
+              Foda Meca
+            </button>
+          </div>
+         <div class="cuadro2">
+           <div class="rowStrategicPlan">
+             <div class="title">
+               <span>Name</span>
+             </div>
+             <div class="value">
+               {{ item.name }}
+             </div>
+           </div>
+           <div class="rowStrategicPlan">
+             <div class="value">
+               {{ item.startDate }}
+             </div>
+             <div class="title">
+               <span>Start Date</span>
+             </div>
+           </div>
+          
+           <div class="rowStrategicPlan">
+             <div class="title">
+               <span>End Date</span>
+             </div>
+             <div class="value">
+               {{ item.endDate }}
+             </div>
+           </div>
+         </div>
+
+          <div class="cuadro1">
+            <div class="rowStrategicPlan">
+              <div class="value">
+                {{ item.mission }}
+              </div>
+              <div class="title">
+                <span>Mission</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cuadro2">
+            <div class="rowStrategicPlan">
+              <div class="title">
+                <span>Vision</span>
+              </div>
+              <div class="value">
+                {{ item.vision }}
+              </div>
+            </div>
+          </div>
+
+          <div class="cuadro1">
+            <div class="rowStrategicPlan">
+              <div class="value">
+                {{ item.values }}
+              </div>
+              <div class="title">
+                <span>Values</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
