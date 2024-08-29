@@ -208,7 +208,7 @@ button:active {
 /* ----------------------------------------------------- */
 /* para button*/
 /* ----------------------------------------------------- */
-
+/* --- buttonCreate */
 .buttonCreate {
   max-width: 200px;
   padding: 10px;
@@ -223,6 +223,7 @@ button:active {
   color: white;
 }
 
+/* --- buttonDelete */
 .buttonDelete {
   max-width: 200px;
   padding: 10px;
@@ -237,6 +238,7 @@ button:active {
   color: white;
 }
 
+/* --- link-button */
 .link-button {
   background: none;
   border: none;
@@ -244,6 +246,154 @@ button:active {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* --- buttonAdd */
+.buttonAdd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0px 8px;
+  background-color: #2f01d6;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px #2f01d6;
+  transition-duration: 0.3s;
+  padding-left: 30px; /* Asegura espacio para el ícono en el lado izquierdo */
+}
+
+.buttonAdd::before {
+  content: "";
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="%23ffffff" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 8px; /* Ajusta la posición a la izquierda */
+  top: 50%;
+  transform: translateY(-50%);
+  transition-duration: 0.3s;
+}
+
+.buttonAdd:hover {
+  color: transparent;
+}
+
+.buttonAdd:hover::before {
+  left: 43%;
+  transition-duration: 0.3s;
+}
+
+.buttonAdd:active {
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 0px rgb(5, 8, 1);
+}
+
+/* --- buttonEdit */
+.buttonEdit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0px 8px;
+  background-color: rgb(153, 0, 255);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px rgb(140, 32, 212);
+  transition-duration: 0.3s;
+  padding-right: 25px;
+}
+
+.buttonEdit::before {
+  content: "";
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24"><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" fill="%23ffffff"></path></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition-duration: 0.3s;
+}
+
+.buttonEdit:hover {
+  color: transparent;
+}
+
+.buttonEdit:hover::before {
+  right: 43%;
+  transition-duration: 0.3s;
+}
+
+.buttonEdit:active {
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 0px rgb(140, 32, 212);
+}
+
+/* --- buttonBack */
+.buttonBack {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0px 10px;
+  background-color: rgb(153, 0, 255);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px rgb(140, 32, 212);
+  transition-duration: 0.3s;
+  padding-left: 35px; /* Asegura espacio para el ícono en el lado izquierdo */
+}
+
+.buttonBack::before {
+  content: "";
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z" fill="%23ffffff"></path></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 8px; /* Ajusta la posición a la izquierda */
+  top: 50%;
+  transform: translateY(-50%);
+  transition-duration: 0.3s;
+}
+
+.buttonBack:hover {
+  color: transparent;
+}
+
+.buttonBack:hover::before {
+  left: 43%;
+  transition-duration: 0.3s;
+}
+
+.buttonBack:active {
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 0px rgb(140, 32, 212);
+}
+
 /* ----------------------------------------------------- */
 /* para mensajes de error */
 /* ----------------------------------------------------- */

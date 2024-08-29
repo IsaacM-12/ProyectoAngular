@@ -1,10 +1,7 @@
 <div class="StrategicPlanStyle">
   <h1>Strategic Plan</h1>
-  <!-- Botón para crear un nuevo plan -->
-  <div *ngIf="!isFormVisible">
-    <button (click)="createNewPlan()" class="buttonCreate">
-      Create New Plan
-    </button>
+  <div *ngIf="!isFormVisible && !isEditMode">
+    <button (click)="createNewPlan()" class="buttonAdd">Plan</button>
 
     <div *ngIf="strategicPlanData.length > 0; else noData">
       <div *ngFor="let item of strategicPlanData">
@@ -12,7 +9,7 @@
           <strong>Name:</strong> {{ item.name }}, <strong>startDate</strong>
           {{ item.startDate }}
         </button>
-        <button (click)="deletePlan(item.id)" class="buttonDelete m-2">
+        <button (click)="deletePlan(item.id)" class="btn btn-danger m-2">
           Delete Plan
         </button>
       </div>
@@ -22,7 +19,11 @@
     </ng-template>
   </div>
 
-  <div *ngIf="isFormVisible">
+  <!-- si no es visible el formulario y no es modo edicion se muestra el boton de crear nuevo plan 
+   y el form solo si es nuevo o se da click en editar -->
+  <div *ngIf="isEditMode || isFormVisible">
+    <button (click)="resetForm()" class="buttonBack">Back to plans</button>
+
     <div *ngIf="isEditMode" class="m-4">
       <h2>Plan</h2>
       <div *ngFor="let item of strategicPlanData">
@@ -32,13 +33,17 @@
           <strong>endDate:</strong> {{ item.endDate }}
           <strong>mission:</strong> {{ item.mission }} <strong>vision:</strong>
           {{ item.vision }}
+          <button (click)="setFormVisibility(true)" class="buttonEdit m-2">
+            Edit
+          </button>
+          <button (click)="navigateToFodaMeca()" class="buttonAdd m-2">
+            Foda Meca
+          </button>
         </span>
       </div>
     </div>
 
-    <button (click)="resetForm()" class="buttonCreate">plans</button>
-
-    <div class="form1-card">
+    <div *ngIf="isFormVisible" class="form1-card">
       <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
         <div>
           <h2>Strategic Plan Form</h2>

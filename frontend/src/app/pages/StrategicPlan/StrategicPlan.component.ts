@@ -5,6 +5,7 @@ import { BasicService } from '../../service/basic.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { API_ROUTES } from '../../config/api.routes';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-strategic-plan',
@@ -24,7 +25,8 @@ export class StrategicPlanComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private basicoService: BasicService
+    private basicoService: BasicService,
+    private router: Router
   ) {}
 
   loadData(): void {
@@ -64,7 +66,6 @@ export class StrategicPlanComponent implements OnInit {
 
   // Método para editar un plan existente
   editPlan(plan: any): void {
-    this.isFormVisible = true; // Mostrar el formulario
     this.isEditMode = true; // Activar el modo edición
     this.currentPlanId = plan.id.toString();
     this.formStrategicPlan.patchValue(plan); // Cargar los datos del plan en el formulario
@@ -76,15 +77,28 @@ export class StrategicPlanComponent implements OnInit {
     this.formStrategicPlan.reset(); // Limpiar el formulario
   }
 
+  setFormVisibility(value: boolean): void {
+    this.isFormVisible = value;
+  }
+
+  navigateToFodaMeca(): void {
+    const FODAMECA: string = `/FodaMeca/${this.currentPlanId}`;
+    console.log('FODAMECA', FODAMECA);
+    this.router.navigate([FODAMECA]);
+  }
+
   sendData(): void {
     if (this.isEditMode) {
-      // Si estamos en modo edición, actualizamos
-      this.updatePlan();
+      // Si estamos en modo edición, actualizamos y mandamos a hacer el FODAMECA
+      this.updatePlan().then(() => {
+        this.navigateToFodaMeca();
+      });
     } else {
       // Si no, creamos un nuevo plan
       this.createData();
     }
   }
+
   async createData(): Promise<void> {
     try {
       const cleanedData = this.cleanFormData();
@@ -126,8 +140,6 @@ export class StrategicPlanComponent implements OnInit {
         title: 'Actualizado',
         text: this.responseMessage,
       });
-      this.loadData(); // Recargar la lista de planes
-      this.resetForm();
     } catch (error) {
       this.responseMessage =
         (error as any).error?.message || 'Error desconocido';
@@ -138,7 +150,7 @@ export class StrategicPlanComponent implements OnInit {
       });
     }
   }
-  
+
   resetForm(): void {
     this.formStrategicPlan.reset();
     this.isEditMode = false; // Reiniciar el modo de edición
@@ -185,11 +197,11 @@ export class StrategicPlanComponent implements OnInit {
   }
 
   private cleanFormData(): any {
-    const formData = this.formStrategicPlan.value;
+    const formData = { ...this.formStrategicPlan.value }; // Crear una copia del objeto
 
-    // Filtrar los campos vacíos
+    // Filtrar los campos vacíos y null
     Object.keys(formData).forEach((key) => {
-      if (formData[key] === '') {
+      if (formData[key] === '' || formData[key] === null) {
         delete formData[key];
       }
     });
