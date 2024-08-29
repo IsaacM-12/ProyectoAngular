@@ -1,95 +1,125 @@
 <div class="StrategicPlanStyle">
   <h1>Strategic Plan</h1>
-  <div *ngIf="strategicPlanData.length > 0; else noData">
-    <div *ngFor="let item of strategicPlanData">
-      <strong>Name:</strong> {{ item.name }}, <strong>startDate</strong>
-      {{ item.startDate }}, <strong>endDate</strong> {{ item.endDate }},
-      <strong>mission</strong> {{ item.mission }}, <strong>vision</strong>
-      {{ item.vision }}
+  <!-- Botón para crear un nuevo plan -->
+  <div *ngIf="!isFormVisible">
+    <button (click)="createNewPlan()" class="buttonCreate">
+      Create New Plan
+    </button>
+
+    <div *ngIf="strategicPlanData.length > 0; else noData">
+      <div *ngFor="let item of strategicPlanData">
+        <button (click)="editPlan(item)" class="link-button m-3">
+          <strong>Name:</strong> {{ item.name }}, <strong>startDate</strong>
+          {{ item.startDate }}
+        </button>
+        <button (click)="deletePlan(item.id)" class="buttonDelete m-2">
+          Delete Plan
+        </button>
+      </div>
+    </div>
+    <ng-template #noData>
+      <p>No data available.</p>
+    </ng-template>
+  </div>
+
+  <div *ngIf="isFormVisible">
+    <div *ngIf="isEditMode" class="m-4">
+      <h2>Plan</h2>
+      <div *ngFor="let item of strategicPlanData">
+        <span *ngIf="item.id === currentPlanId">
+          <strong>Name:</strong> {{ item.name }}, <strong>startDate:</strong>
+          {{ item.startDate }}
+          <strong>endDate:</strong> {{ item.endDate }}
+          <strong>mission:</strong> {{ item.mission }} <strong>vision:</strong>
+          {{ item.vision }}
+        </span>
+      </div>
+    </div>
+
+    <button (click)="resetForm()" class="buttonCreate">plans</button>
+
+    <div class="form1-card">
+      <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
+        <div>
+          <h2>Strategic Plan Form</h2>
+          <div>
+            <input
+              placeholder="Name"
+              type="text"
+              id="name"
+              formControlName="name"
+            />
+            <div
+              *ngIf="
+                formStrategicPlan.get('name')?.invalid &&
+                (formStrategicPlan.get('name')?.dirty ||
+                  formStrategicPlan.get('name')?.touched)
+              "
+              class="error"
+            >
+              <p *ngIf="formStrategicPlan.get('name')?.errors?.['required']">
+                Name is required.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <textarea
+              placeholder="mission"
+              type="text"
+              id="mission"
+              formControlName="mission"
+            ></textarea>
+          </div>
+
+          <div>
+            <textarea
+              placeholder="vision"
+              type="text"
+              id="vision"
+              formControlName="vision"
+            ></textarea>
+          </div>
+
+          <div>
+            <div>
+              <label for="endDate"> End Date: </label>
+            </div>
+            <input
+              placeholder="endDate"
+              type="date"
+              [min]="minEndDate"
+              id="endDate"
+              formControlName="endDate"
+            />
+            <div
+              *ngIf="
+                formStrategicPlan.get('endDate')?.invalid &&
+                (formStrategicPlan.get('endDate')?.dirty ||
+                  formStrategicPlan.get('endDate')?.touched)
+              "
+              class="error"
+            >
+              <p *ngIf="formStrategicPlan.get('endDate')?.errors?.['required']">
+                endDate is required.
+              </p>
+            </div>
+          </div>
+
+          <!-- Show the error div if the form is invalid -->
+          <div class="badInfo" *ngIf="!formStrategicPlan.valid">
+            <p>Not ready to send</p>
+          </div>
+          <button type="submit" class="buttonCreate m-3">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
-  <ng-template #noData>
-    <p>No data available.</p>
-  </ng-template>
 
-  <div class="form1-card">
-    <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
-      <div>
-        <h2>Strategic Plan Form</h2>
-        <div>
-          <input
-            placeholder="Name"
-            type="text"
-            id="name"
-            formControlName="name"
-          />
-          <div
-            *ngIf="
-              formStrategicPlan.get('name')?.invalid &&
-              (formStrategicPlan.get('name')?.dirty ||
-                formStrategicPlan.get('name')?.touched)
-            "
-            class="error"
-          >
-            <p *ngIf="formStrategicPlan.get('name')?.errors?.['required']">
-              Name is required.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <textarea
-            placeholder="mission"
-            type="text"
-            id="mission"
-            formControlName="mission"
-          ></textarea>
-        </div>
-
-        <div>
-          <textarea
-            placeholder="vision"
-            type="text"
-            id="vision"
-            formControlName="vision"
-          ></textarea>
-        </div>
-
-        <div>
-          <div>
-            <label for="endDate"> End Date: </label>
-          </div>
-          <input
-            placeholder="endDate"
-            type="date"
-            id="endDate"
-            formControlName="endDate"
-          />
-          <div
-            *ngIf="
-              formStrategicPlan.get('endDate')?.invalid &&
-              (formStrategicPlan.get('endDate')?.dirty ||
-                formStrategicPlan.get('endDate')?.touched)
-            "
-            class="error"
-          >
-            <p *ngIf="formStrategicPlan.get('endDate')?.errors?.['required']">
-              endDate is required.
-            </p>
-          </div>
-        </div>
-
-        <!-- Show the error div if the form is invalid -->
-        <div class="badInfo" *ngIf="!formStrategicPlan.valid">
-          <p>Not ready to send</p>
-        </div>
-        <button type="submit" class="buttonCreate m-3">Submit</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="card-perzonnalized1 m-4">
-    <div class="shadowTopRight"></div>
-    <div class="shadowButtomLeft"></div>
+  <div class="container-card-perzonnalized1">
+    <div class="card-perzonnalized1 m-4">
+      <div class="shadowTopRight"></div>
+      <div class="shadowButtomLeft"></div>
+    </div>
   </div>
 </div>

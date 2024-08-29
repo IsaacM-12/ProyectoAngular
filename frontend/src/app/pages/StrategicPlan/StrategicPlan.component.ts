@@ -17,6 +17,10 @@ export class StrategicPlanComponent implements OnInit {
   strategicPlanData: any[] = [];
   responseMessage: string = '';
   public formStrategicPlan!: FormGroup;
+  isFormVisible: boolean = false;
+  public minEndDate: string = '';
+  isEditMode: boolean = false; // Variable para indicar si es modo edición
+  public currentPlanId: string = ''; // ID del plan actual a editar (si lo hay)
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,21 +56,50 @@ export class StrategicPlanComponent implements OnInit {
       endDate: ['', Validators.required],
       name: ['', Validators.required],
     });
+    // Obtener la fecha actual y sumar un mes
+    const today = new Date();
+    const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
+    this.minEndDate = nextMonth.toISOString().split('T')[0];
   }
 
-  async sendData(): Promise<void> {
+  // Método para editar un plan existente
+  editPlan(plan: any): void {
+    this.isFormVisible = true; // Mostrar el formulario
+    this.isEditMode = true; // Activar el modo edición
+    this.currentPlanId = plan.id.toString();
+    this.formStrategicPlan.patchValue(plan); // Cargar los datos del plan en el formulario
+  }
+
+  // Método para crear un nuevo plan
+  createNewPlan(): void {
+    this.isFormVisible = true; // Mostrar el formulario
+    this.formStrategicPlan.reset(); // Limpiar el formulario
+  }
+
+  sendData(): void {
+    if (this.isEditMode) {
+      // Si estamos en modo edición, actualizamos
+      this.updatePlan();
+    } else {
+      // Si no, creamos un nuevo plan
+      this.createData();
+    }
+  }
+  async createData(): Promise<void> {
     try {
+      const cleanedData = this.cleanFormData();
+
       this.responseMessage = await this.basicoService.createData(
-        this.formStrategicPlan.value,
+        cleanedData,
         `${API_ROUTES.BASE_URL}${API_ROUTES.STRATEGIC_PLAN}`
       );
       Swal.fire({
-        title: '¡Listo!',
-        text: this.responseMessage,
         icon: 'success',
-        confirmButtonText: 'Aceptar',
+        title: 'Creado',
+        text: this.responseMessage,
       });
       this.loadData();
+      this.resetForm();
     } catch (error) {
       this.responseMessage =
         (error as any).error?.message || 'Error desconocido';
@@ -76,5 +109,91 @@ export class StrategicPlanComponent implements OnInit {
         text: this.responseMessage,
       });
     }
+  }
+
+  async updatePlan(): Promise<void> {
+    try {
+      const cleanedData = this.cleanFormData();
+      this.responseMessage = await this.basicoService
+        .updateData(
+          this.currentPlanId,
+          cleanedData,
+          `${API_ROUTES.BASE_URL}${API_ROUTES.STRATEGIC_PLAN}`
+        )
+        .toPromise();
+      Swal.fire({
+        icon: 'success',
+        title: 'Actualizado',
+        text: this.responseMessage,
+      });
+      this.loadData(); // Recargar la lista de planes
+      this.resetForm();
+    } catch (error) {
+      this.responseMessage =
+        (error as any).error?.message || 'Error desconocido';
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: this.responseMessage,
+      });
+    }
+  }
+  
+  resetForm(): void {
+    this.formStrategicPlan.reset();
+    this.isEditMode = false; // Reiniciar el modo de edición
+    this.currentPlanId = ''; // Limpiar el ID del plan actual
+    this.isFormVisible = false; // Ocultar el formulario
+  }
+
+  /**
+   * función para eliminar un plan por ID
+   * @param id del plan a eliminar
+   * @returns promesa con el mensaje de respuesta
+   */
+  async deletePlan(id: string): Promise<void> {
+    try {
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'No podrás revertir esto',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+      if (result.isConfirmed) {
+        this.responseMessage = await this.basicoService.deleteDataByID(
+          id,
+          `${API_ROUTES.BASE_URL}${API_ROUTES.STRATEGIC_PLAN}`
+        );
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado',
+          text: this.responseMessage,
+        });
+        this.loadData();
+      }
+    } catch (error) {
+      this.responseMessage =
+        (error as any).error?.message || 'Error desconocido';
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: this.responseMessage,
+      });
+    }
+  }
+
+  private cleanFormData(): any {
+    const formData = this.formStrategicPlan.value;
+
+    // Filtrar los campos vacíos
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] === '') {
+        delete formData[key];
+      }
+    });
+
+    return formData;
   }
 }

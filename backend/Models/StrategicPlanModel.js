@@ -27,8 +27,8 @@ const strategicPlanSchema = new mongoose.Schema(
  */
 const validateStrategicPlan = (data) => {
   const schema = Joi.object({
-    mission: Joi.string().min(1).max(1000).optional().label("Mission"),
-    vision: Joi.string().min(1).max(1000).optional().label("Vision"),
+    mission: Joi.string().min(10).max(1000).optional().label("Mission"),
+    vision: Joi.string().min(10).max(1000).optional().label("Vision"),
     startDate: Joi.date().label("Start Date"),
     endDate: Joi.date().required().label("End Date"),
     name: Joi.string().min(1).max(255).required().label("Name"),

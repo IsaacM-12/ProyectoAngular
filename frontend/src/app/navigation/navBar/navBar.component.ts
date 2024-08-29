@@ -22,4 +22,7 @@ export class NavBarComponent {
   navigateToBasico() {
     this.router.navigate(['/basico']);
   }
+  navigateToStrategicPlan() {
+    this.router.navigate(['/StrategicPlan']);
+  }
 }
