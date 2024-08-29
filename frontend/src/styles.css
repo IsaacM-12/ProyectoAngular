@@ -11,6 +11,13 @@ button:active {
   transform: scale(0.8); /* Aplica la escala cuando se presiona el botón */
 }
 
+:root {
+  --color2: #3700ff;
+  --color3: #ff00ff;
+  --basicBackground: #171717;
+  --inputform1Color: #131212;
+}
+
 /* ----------------------------------------------------- */
 /* card perzonalizada numero 1 */
 /* ----------------------------------------------------- */
@@ -23,7 +30,7 @@ button:active {
   border-radius: 20px;
   margin: auto;
 }
-.card-perzonnalized1 .shadowTopRight {
+.shadowTopRight {
   position: absolute;
   border-radius: 20px;
   right: -15px;
@@ -33,13 +40,13 @@ button:active {
   background: linear-gradient(
     to top right,
     transparent 0%,
-    rgba(255, 0, 255, 1) 70%,
-    rgba(255, 0, 255, 1) 100%
+    var(--color3) 50%,
+    var(--color3) 100%
   );
   z-index: -1; /* Asegúrate de que la sombra esté detrás del contenido */
 }
 
-.card-perzonnalized1 .shadowButtomLeft {
+.shadowButtomLeft {
   position: absolute;
   border-radius: 20px;
   left: -15px;
@@ -49,8 +56,8 @@ button:active {
   background: linear-gradient(
     to bottom left,
     transparent 0%,
-    rgb(0, 60, 255) 70%,
-    rgb(0, 60, 255) 100%
+    var(--color2) 70%,
+    var(--color2) 100%
   );
   z-index: -1; /* Asegúrate de que la sombra esté detrás del contenido */
 }
@@ -61,7 +68,11 @@ button:active {
 .form1-card {
   margin: auto;
   padding: 0;
-  background-image: linear-gradient(163deg, #ff00ff 0%, #3700ff 100%);
+  background-image: linear-gradient(
+    163deg,
+    var(--color3) 0%,
+    var(--color2) 100%
+  );
   border-radius: 20px;
 }
 
@@ -69,7 +80,7 @@ button:active {
   display: flex;
   flex-direction: column;
   padding: 2em;
-  background-color: #171717;
+  background-color: #161616;
   border-radius: 30px;
   color: white;
   margin: auto;
@@ -85,7 +96,7 @@ button:active {
   margin-bottom: 1em;
   width: 80%;
   max-width: 400px;
-  box-shadow: inset 25px 15px 15px rgb(0, 0, 0);
+  box-shadow: inset 25px 15px 15px var(--inputform1Color);
 }
 .form1 select option {
   color: black;
@@ -99,17 +110,17 @@ button:active {
   margin-bottom: 1em;
   width: 80%;
   max-width: 400px;
-  box-shadow: inset 25px 15px 15px rgb(0, 0, 0);
+  /* box-shadow: inset 25px 15px 15px var(--inputform1Color); */
+  border: 1px solid black;
 }
 .form1 input:focus {
   box-shadow: none;
 }
 
-/* Opcional: Para un enfoque más avanzado */
 .form1 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(
     1
-  ); /* Intenta invertir el color del icono, pero puede no funcionar en todos los navegadores */
+  ); /* Invertir el color del icono, pero puede no funcionar en todos los navegadores */
 }
 
 .form1 input::placeholder {
@@ -128,6 +139,24 @@ button:active {
   width: 80%;
   max-width: 400px;
   height: 100px;
+  border: 1px solid black;
+  border-radius: 25px;
+  overflow: auto; /* Asegura que el scrollbar aparezca */
+}
+
+/* Para navegadores basados en WebKit (Chrome, Safari, Edge) */
+.form1 textarea::-webkit-scrollbar {
+  width: 8px; /* Ancho del scroll */
+  border-radius: 25px;
+  background-color: var(--color2);
+}
+
+.form1 textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255); /* Color del scroll */
+  border-radius: 25px;
+}
+.form1 textarea::-webkit-scrollbar-track {
+  height: 80px;
 }
 
 .form1 h2 {
@@ -142,7 +171,7 @@ button:active {
     width: 500px;
   }
   .form1-card {
-    width: 500px;
+    width: 502px;
   }
 }
 

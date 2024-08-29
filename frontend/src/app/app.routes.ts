@@ -7,6 +7,6 @@ export const routes: Routes = [
   { path: 'basico', component: BasicoComponent },
   { path: 'notfound', component: ChargingComponent },
   { path: 'StrategicPlan', component: StrategicPlanComponent },
-  { path: '', redirectTo: '/basico', pathMatch: 'full' }, // Redirige la ruta raíz a /basico
+  { path: '', redirectTo: '/StrategicPlan', pathMatch: 'full' }, // Redirige la ruta si no hay nada
   { path: '**', redirectTo: '/notfound' }, // Redirige cualquier otra ruta a /notfound
 ];

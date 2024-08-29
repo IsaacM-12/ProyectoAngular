@@ -19,4 +19,7 @@ export class NavBarComponent {
   navigateToHome() {
     this.router.navigate(['/']);
   }
+  navigateToBasico() {
+    this.router.navigate(['/basico']);
+  }
 }

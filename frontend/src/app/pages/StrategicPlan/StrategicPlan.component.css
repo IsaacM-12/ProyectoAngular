@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+.StrategicPlanStyle {
+  background-color: var(--basicBackground);
+  color: white;
+}
