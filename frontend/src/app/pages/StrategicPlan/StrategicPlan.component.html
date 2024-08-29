@@ -27,19 +27,65 @@
     <div *ngIf="isEditMode" class="m-4">
       <h2>Plan</h2>
       <div *ngFor="let item of strategicPlanData">
-        <span *ngIf="item.id === currentPlanId">
-          <strong>Name:</strong> {{ item.name }}, <strong>startDate:</strong>
-          {{ item.startDate }}
-          <strong>endDate:</strong> {{ item.endDate }}
-          <strong>mission:</strong> {{ item.mission }} <strong>vision:</strong>
-          {{ item.vision }}
-          <button (click)="setFormVisibility(true)" class="buttonEdit m-2">
-            Edit
-          </button>
-          <button (click)="navigateToFodaMeca()" class="buttonAdd m-2">
-            Foda Meca
-          </button>
-        </span>
+        <div *ngIf="item.id === currentPlanId" class="StrategicContainer">
+          <div>
+            <button (click)="setFormVisibility(true)" class="buttonEdit m-2">
+              Edit
+            </button>
+            <button (click)="navigateToFodaMeca()" class="buttonAdd m-2">
+              Foda Meca
+            </button>
+          </div>
+          <div class="rowStrategicPlan">
+            <div class="title">
+              <span>Name</span>
+            </div>
+            <div class="value">
+              {{ item.name }}
+            </div>
+          </div>
+          <div class="rowStrategicPlan">
+            <div class="value">
+              {{ item.startDate }}
+            </div>
+            <div class="title">
+              <span>Start Date</span>
+            </div>
+          </div>
+
+          <div class="rowStrategicPlan">
+            <div class="title">
+              <span>End Date</span>
+            </div>
+            <div class="value">
+              {{ item.endDate }}
+            </div>
+          </div>
+          <div class="rowStrategicPlan">
+            <div class="value">
+              {{ item.mission }}
+            </div>
+            <div class="title">
+              <span>Mission</span>
+            </div>
+          </div>
+          <div class="rowStrategicPlan">
+            <div class="title">
+              <span>Vision</span>
+            </div>
+            <div class="value">
+              {{ item.vision }}
+            </div>
+          </div>
+          <div class="rowStrategicPlan">
+            <div class="value">
+              {{ item.values }}
+            </div>
+            <div class="title">
+              <span>Values</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -83,6 +129,15 @@
               type="text"
               id="vision"
               formControlName="vision"
+            ></textarea>
+          </div>
+
+          <div>
+            <textarea
+              placeholder="values"
+              type="text"
+              id="values"
+              formControlName="values"
             ></textarea>
           </div>
 

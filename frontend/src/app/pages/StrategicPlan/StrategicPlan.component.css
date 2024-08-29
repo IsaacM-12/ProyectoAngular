@@ -6,3 +6,63 @@
   color: white;
   min-height: calc(100vh - 52px);
 }
+
+.StrategicContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.rowStrategicPlan {
+  display: flex;
+  justify-content: space-between; 
+  width: 100%; 
+  margin-bottom: 10px; 
+  min-height: 5rem;
+}
+
+.title,
+.value {
+  width: 50%; 
+  margin: 0 10px; 
+  box-sizing: border-box; 
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: red;
+  text-align: center; /* Centra el texto en la columna de título */
+}
+
+.value {
+  font-size: 1rem;
+  color: rgb(241, 241, 241);
+  text-align: center; /* Centra el texto en la columna de valor */
+}
+
+/* .StrategicContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.title {
+  display: inline-flex;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: red;
+  width: 50%;
+}
+.value {
+  display: inline-flex;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: rgb(241, 241, 241);
+  width: 50%;
+} */

@@ -38,6 +38,7 @@ export class StrategicPlanComponent implements OnInit {
             id: item._id,
             mission: item.mission,
             vision: item.vision,
+            values: item.values,
             startDate: item.startDate,
             endDate: item.endDate,
             name: item.name,
@@ -55,6 +56,7 @@ export class StrategicPlanComponent implements OnInit {
     this.formStrategicPlan = this.formBuilder.group({
       mission: [''],
       vision: [''],
+      values: [''],
       endDate: ['', Validators.required],
       name: ['', Validators.required],
     });
