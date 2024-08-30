@@ -71,142 +71,6 @@ button:active {
 }
 
 /* ----------------------------------------------------- */
-/* form perzonalizado numero 1  */
-/* ----------------------------------------------------- */
-.form1-card {
-  margin: 25px auto 35px auto;
-  padding: 0;
-  background-image: linear-gradient(
-    163deg,
-    var(--color4) 0%,
-    var(--color2) 100%
-  );
-  border-radius: 20px;
-}
-
-.form1 {
-  display: flex;
-  flex-direction: column;
-  padding: 2em;
-  background-color: #161616;
-  border-radius: 30px;
-  color: white;
-  margin: auto;
-  text-align: center;
-  padding: 0;
-}
-
-.form1 select {
-  background-color: transparent;
-  color: white;
-  border-radius: 25px;
-  padding: 10px;
-  margin-bottom: 1em;
-  width: 80%;
-  max-width: 400px;
-  box-shadow: inset 25px 15px 15px #131212;
-}
-.form1 select option {
-  color: black;
-}
-
-.form1 input {
-  background-color: transparent;
-  color: white;
-  border-radius: 25px;
-  padding: 10px;
-  margin-bottom: 1em;
-  width: 80%;
-  max-width: 400px;
-  /* box-shadow: inset 25px 15px 15px var(--inputform1Color); */
-  border: 1px solid black;
-}
-.form1 input:focus {
-  box-shadow: none;
-}
-
-.form1 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(
-    1
-  ); /* Invertir el color del icono, pero puede no funcionar en todos los navegadores */
-}
-
-.form1 input::placeholder {
-  color: rgb(194, 170, 170);
-}
-
-.form1 input:focus::placeholder {
-  color: rgb(255, 255, 255);
-}
-
-.form1 textarea {
-  background-color: transparent;
-  color: white;
-  padding: 15px;
-  margin-bottom: 1em;
-  width: 80%;
-  max-width: 400px;
-  height: 100px;
-  border: 1px solid black;
-  border-radius: 25px;
-  overflow: auto; /* Asegura que el scrollbar aparezca */
-}
-
-/* Para navegadores basados en WebKit (Chrome, Safari, Edge) */
-.form1 textarea::-webkit-scrollbar {
-  width: 8px; /* Ancho del scroll */
-  border-radius: 25px;
-  background-color: var(--color2);
-}
-
-.form1 textarea::-webkit-scrollbar-thumb {
-  background-color: rgb(255, 255, 255); /* Color del scroll */
-  border-radius: 25px;
-}
-.form1 textarea::-webkit-scrollbar-track {
-  height: 80px;
-}
-
-.form1 h2 {
-  text-align: center;
-  margin: 2em;
-  color: rgb(255, 255, 255);
-  font-size: 1.2em;
-}
-
-@media (min-width: 600px) {
-  .form1 {
-    width: 500px;
-  }
-  .form1-card {
-    width: 502px;
-  }
-}
-
-@media (min-width: 300px) and (max-width: 600px) {
-  .form1 {
-    width: 80%; /* Ancho predeterminado para .form1 fuera de .form1-card */
-  }
-
-  .form1-card .form1 {
-    width: 100%; /* Ancho para .form1 dentro de .form1-card */
-  }
-
-  .form1-card {
-    width: 80%;
-  }
-}
-
-@media (max-width: 300px) {
-  .form1 {
-    width: 98%;
-  }
-  .form1-card {
-    width: 98%;
-  }
-}
-
-/* ----------------------------------------------------- */
 /* para button*/
 /* ----------------------------------------------------- */
 /* --- buttonCreate */
@@ -237,6 +101,69 @@ button:active {
 .buttonDelete:hover {
   background-color: black;
   color: white;
+}
+
+/* --- buttonDelete con icono */
+.delete-button-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(245, 45, 10);
+  border: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.delete-button-icon:hover {
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(245, 45, 10);
+  align-items: center;
+}
+
+.delete-button-icon:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.delete-button-icon::before {
+  display: none;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button-icon:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
 }
 
 /* --- link-button */
@@ -396,7 +323,142 @@ button:active {
 }
 
 /* ----------------------------------------------------- */
-/* para mensajes de error */
+/* form perzonalizado numero 1  */
+/* ----------------------------------------------------- */
+.form1-card {
+  margin: 25px auto 35px auto;
+  padding: 0;
+  background-image: linear-gradient(
+    163deg,
+    var(--color4) 0%,
+    var(--color2) 100%
+  );
+  border-radius: 20px;
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+  background-color: #161616;
+  border-radius: 30px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding: 0;
+}
+
+.form1 select {
+  background-color: transparent;
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+  margin-bottom: 1em;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: inset 25px 15px 15px #131212;
+}
+.form1 select option {
+  color: black;
+}
+
+.form1 input {
+  background-color: transparent;
+  color: white;
+  border-radius: 25px;
+  padding: 10px;
+  margin-bottom: 1em;
+  width: 80%;
+  max-width: 400px;
+  /* box-shadow: inset 25px 15px 15px var(--inputform1Color); */
+  border: 1px solid black;
+}
+.form1 input:focus {
+  box-shadow: none;
+}
+
+.form1 input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(
+    1
+  ); /* Invertir el color del icono, pero puede no funcionar en todos los navegadores */
+}
+
+.form1 input::placeholder {
+  color: rgb(194, 170, 170);
+}
+
+.form1 input:focus::placeholder {
+  color: rgb(255, 255, 255);
+}
+
+.form1 textarea {
+  background-color: transparent;
+  color: white;
+  padding: 15px;
+  margin-bottom: 1em;
+  width: 80%;
+  max-width: 400px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 25px;
+  overflow: auto; /* Asegura que el scrollbar aparezca */
+}
+
+/* Para navegadores basados en WebKit (Chrome, Safari, Edge) */
+.form1 textarea::-webkit-scrollbar {
+  width: 8px; /* Ancho del scroll */
+  border-radius: 25px;
+  background-color: var(--color2);
+}
+
+.form1 textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255); /* Color del scroll */
+  border-radius: 25px;
+}
+.form1 textarea::-webkit-scrollbar-track {
+  height: 80px;
+}
+
+.form1 h2 {
+  text-align: center;
+  margin: 2em;
+  color: rgb(255, 255, 255);
+  font-size: 1.2em;
+}
+
+@media (min-width: 600px) {
+  .form1 {
+    width: 500px;
+  }
+  .form1-card {
+    width: 502px;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 600px) {
+  .form1 {
+    width: 80%; /* Ancho predeterminado para .form1 fuera de .form1-card */
+  }
+
+  .form1-card .form1 {
+    width: 100%; /* Ancho para .form1 dentro de .form1-card */
+  }
+
+  .form1-card {
+    width: 80%;
+  }
+}
+
+@media (max-width: 300px) {
+  .form1 {
+    width: 98%;
+  }
+  .form1-card {
+    width: 98%;
+  }
+}
+/* ----------------------------------------------------- */
+/* para alertas de info en los form */
 /* ----------------------------------------------------- */
 
 .error p {
@@ -463,7 +525,7 @@ button:active {
 }
 
 /* 
-paleta de colores 
+paleta de colores por si se necesita
 #3700ff
 #140077
 #2803af
@@ -482,4 +544,6 @@ paleta de colores
 
 #ff00ff
 #ff21f2
+
+#f52d0a
 */

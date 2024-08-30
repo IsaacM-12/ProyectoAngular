@@ -173,7 +173,7 @@ export class StrategicPlanComponent implements OnInit {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#f52d0a',
       });
       if (result.isConfirmed) {
         this.responseMessage = await this.basicoService.deleteDataByID(
