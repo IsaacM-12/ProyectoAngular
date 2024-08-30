@@ -74,7 +74,7 @@
   position: relative;
   width: 450px; /* 100% */
   height: 205px; /* 100% */
-  padding: 50px 8%; /* Reducir padding si es necesario */
+  padding: 8%; /* Reducir padding si es necesario */
   z-index: 1;
 }
 

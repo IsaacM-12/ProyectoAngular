@@ -20,12 +20,7 @@
         </div>
       </div>
       <div>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Email"
-          autocomplete="email"
-        />
+        <input type="email" formControlName="email" placeholder="Email" />
         <div
           *ngIf="
             registerForm?.get('email')?.invalid &&
