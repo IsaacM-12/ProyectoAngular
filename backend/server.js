@@ -19,6 +19,9 @@ app.listen(port, () => console.log(`Listening on port ${port}...`));
 const StrategicPlanRoute = require("./Routes/strategicPlanRoute");
 app.use("/strategicPlan", StrategicPlanRoute);
 
+const AuthRoute = require("./Routes/UserRoute");
+app.use("/auth", AuthRoute);
+
 // ---------------------------------------------------------------------
 // borrar
 // ---------------------------------------------------------------------

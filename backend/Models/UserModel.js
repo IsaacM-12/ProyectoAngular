@@ -6,11 +6,10 @@ const Joi = require("joi");
  */
 const userSchema = new mongoose.Schema(
   {
-    ID: { type: String, required: true },
-    name: { type: String, required: true },
-    email: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    strategicPlans_ListIDS: { type: [String], required: true },
+    strategicPlans_ListIDS: { type: [String], required: false },
   },
   { strict: "throw" }
 );
@@ -22,11 +21,13 @@ const userSchema = new mongoose.Schema(
  */
 const validateUser = (data) => {
   const schema = Joi.object({
-    ID: Joi.string().required().label("ID"),
-    name: Joi.string().min(1).max(255).required().label("Name"),
+    name: Joi.string().min(3).max(50).required().label("Name"),
     email: Joi.string().email().required().label("Email"),
-    password: Joi.string().min(6).required().label("Password"),
-    strategicPlans_ListIDS: Joi.array().items(Joi.string()).required().label("Strategic Plans List IDs"),
+    password: Joi.string().min(2).required().label("Password"),
+    strategicPlans_ListIDS: Joi.array()
+      .items(Joi.string())
+      .optional()
+      .label("Strategic Plans List IDs"),
   });
   return schema.validate(data);
 };

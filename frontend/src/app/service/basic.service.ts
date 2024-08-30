@@ -18,13 +18,13 @@ export class BasicService {
   }
 
   postData(data: any, url: string): Observable<any> {
-    console.log("post Data", data);
-    console.log("post url", url);
+    console.log('post Data', data);
+    console.log('post url', url);
     return this.http.post<any>(url, data);
   }
 
   deleteData(id: string, url: string): Observable<any> {
-    console.log("delete url", url);
+    console.log('delete url', url);
     return this.http.delete<any>(`${url}/${id}`);
   }
 

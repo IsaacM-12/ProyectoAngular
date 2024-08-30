@@ -25,4 +25,10 @@ export class NavBarComponent {
   navigateToStrategicPlan() {
     this.router.navigate(['/StrategicPlan']);
   }
+  navigateToInvitations() {
+    this.router.navigate(['/Invitations']);
+  }
+  navigateToAuth() {
+    this.router.navigate(['/Auth']);
+  }
 }

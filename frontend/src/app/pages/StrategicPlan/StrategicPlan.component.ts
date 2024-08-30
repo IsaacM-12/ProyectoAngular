@@ -29,6 +29,22 @@ export class StrategicPlanComponent implements OnInit {
     private router: Router
   ) {}
 
+  ngOnInit(): void {
+    this.loadData();
+
+    this.formStrategicPlan = this.formBuilder.group({
+      mission: [''],
+      vision: [''],
+      values: [''],
+      endDate: ['', Validators.required],
+      name: ['', Validators.required],
+    });
+    // Obtener la fecha actual y sumar un mes
+    const today = new Date();
+    const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
+    this.minEndDate = nextMonth.toISOString().split('T')[0];
+  }
+
   loadData(): void {
     this.basicoService
       .getData(`${API_ROUTES.BASE_URL}${API_ROUTES.STRATEGIC_PLAN}`)
@@ -48,22 +64,6 @@ export class StrategicPlanComponent implements OnInit {
           console.error('Error al obtener los datos:', error);
         }
       );
-  }
-
-  ngOnInit(): void {
-    this.loadData();
-
-    this.formStrategicPlan = this.formBuilder.group({
-      mission: [''],
-      vision: [''],
-      values: [''],
-      endDate: ['', Validators.required],
-      name: ['', Validators.required],
-    });
-    // Obtener la fecha actual y sumar un mes
-    const today = new Date();
-    const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
-    this.minEndDate = nextMonth.toISOString().split('T')[0];
   }
 
   // Método para editar un plan existente
@@ -153,13 +153,6 @@ export class StrategicPlanComponent implements OnInit {
     }
   }
 
-  resetForm(): void {
-    this.formStrategicPlan.reset();
-    this.isEditMode = false; // Reiniciar el modo de edición
-    this.currentPlanId = ''; // Limpiar el ID del plan actual
-    this.isFormVisible = false; // Ocultar el formulario
-  }
-
   /**
    * función para eliminar un plan por ID
    * @param id del plan a eliminar
@@ -196,6 +189,13 @@ export class StrategicPlanComponent implements OnInit {
         text: this.responseMessage,
       });
     }
+  }
+
+  resetForm(): void {
+    this.formStrategicPlan.reset();
+    this.isEditMode = false; // Reiniciar el modo de edición
+    this.currentPlanId = ''; // Limpiar el ID del plan actual
+    this.isFormVisible = false; // Ocultar el formulario
   }
 
   private cleanFormData(): any {
