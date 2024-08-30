@@ -1,7 +1,6 @@
 <div class="StrategicPlanStyle">
-  <h1>Strategic Plan</h1>
   <div *ngIf="!isFormVisible && !isEditMode">
-    <button (click)="createNewPlan()" class="buttonAdd">Plan</button>
+    <button (click)="createNewPlan()" class="buttonAdd m-3">Plan</button>
 
     <div *ngIf="strategicPlanData.length > 0; else noData">
       <div *ngFor="let item of strategicPlanData">
@@ -22,7 +21,7 @@
   <!-- si no es visible el formulario y no es modo edicion se muestra el boton de crear nuevo plan 
    y el form solo si es nuevo o se da click en editar -->
   <div *ngIf="isEditMode || isFormVisible">
-    <button (click)="resetForm()" class="buttonBack">Back to plans</button>
+    <button (click)="resetForm()" class="buttonBack m-3">Back to plans</button>
 
     <div *ngIf="isFormVisible" class="form1-card">
       <form [formGroup]="formStrategicPlan" (submit)="sendData()" class="form1">
@@ -110,86 +109,92 @@
       </form>
     </div>
 
-    <div *ngIf="isEditMode" class="m-4">
+    <div *ngIf="isEditMode">
       <div *ngFor="let item of strategicPlanData">
-        <div *ngIf="item.id === currentPlanId" class="StrategicContainer">
-          <div>
-            <button (click)="setFormVisibility(true)" class="buttonEdit m-5">
-              Edit
-            </button>
-            <button (click)="navigateToFodaMeca()" class="buttonAdd m-5">
-              Foda Meca
-            </button>
-          </div>
-         <div class="cuadro2">
-           <div class="rowStrategicPlan">
-             <div class="title">
-               <span>Name</span>
-             </div>
-             <div class="value">
-               {{ item.name }}
-             </div>
-           </div>
-           <div class="rowStrategicPlan">
-             <div class="value">
-               {{ item.startDate }}
-             </div>
-             <div class="title">
-               <span>Start Date</span>
-             </div>
-           </div>
-          
-           <div class="rowStrategicPlan">
-             <div class="title">
-               <span>End Date</span>
-             </div>
-             <div class="value">
-               {{ item.endDate }}
-             </div>
-           </div>
-         </div>
+        <div
+          *ngIf="item.id === currentPlanId"
+          class="container-fluid"
+          id="containerStrateciPlan"
+        >
+          <div id="section1" class="row">
+            <div class="col-lg-6 col-12">
+              <div class="container-card1Varation">
+                <div class="card-perzonnalized1">
+                  <div class="shadowTopRight"></div>
+                  <div class="shadowButtomLeft"></div>
 
-          <div class="cuadro1">
-            <div class="rowStrategicPlan">
-              <div class="value">
-                {{ item.mission }}
+                  <div class="p-3">
+                    <div>
+                      <span id="section1NameTitle">Name:</span>
+                      <span id="section1NameValue">
+                        {{ item.name }}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span id="section1StartDateTitle"> Start Date </span
+                      ><span id="section1EndDateTitle"> End Date </span>
+                    </div>
+
+                    <div>
+                      <span id="section1startDateValue">
+                        {{ item.startDate | date : "dd/MM/yyyy" }}
+                      </span>
+                      <span id="section1EndDateValue">
+                        {{ item.endDate | date : "dd/MM/yyyy" }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="title">
-                <span>Mission</span>
-              </div>
+            </div>
+            <div class="col-lg-6 col-12">
+              <button (click)="setFormVisibility(true)" class="buttonEdit m-4">
+                Edit
+              </button>
+              <button (click)="navigateToFodaMeca()" class="buttonAdd m-4">
+                Foda Meca
+              </button>
             </div>
           </div>
 
-          <div class="cuadro2">
-            <div class="rowStrategicPlan">
-              <div class="title">
-                <span>Vision</span>
-              </div>
-              <div class="value">
-                {{ item.vision }}
-              </div>
+          <span
+            id="section2"
+            class="row d-flex align-items-center justify-content-center"
+          >
+            <div id="section2Value" class="col-12 col-md-6 text-center">
+              {{ item.mission }}
             </div>
-          </div>
+            <div class="col-12 col-md-6">
+              <span id="section2Title">Mission</span>
+            </div>
+          </span>
 
-          <div class="cuadro1">
-            <div class="rowStrategicPlan">
-              <div class="value">
-                {{ item.values }}
-              </div>
-              <div class="title">
-                <span>Values</span>
-              </div>
+          <span
+            id="section3"
+            class="row d-flex align-items-center justify-content-center"
+          >
+            <div class="col-12 col-md-6 text-end">
+              <span id="section3Title">Vision</span>
             </div>
-          </div>
+            <div id="section3Value" class="col-12 col-md-6 text-center">
+              {{ item.vision }}
+            </div>
+          </span>
+
+          <span
+            id="section4"
+            class="row d-flex align-items-center justify-content-center"
+          >
+            <div id="section4Value" class="col-12 col-md-6 text-center">
+              {{ item.values }}
+            </div>
+            <div class="col-12 col-md-6">
+              <span id="section4Title">Values</span>
+            </div>
+          </span>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="container-card-perzonnalized1">
-    <div class="card-perzonnalized1 m-4">
-      <div class="shadowTopRight"></div>
-      <div class="shadowButtomLeft"></div>
     </div>
   </div>
 </div>
