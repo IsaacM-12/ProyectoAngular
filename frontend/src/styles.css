@@ -74,7 +74,7 @@ button:active {
 /* form perzonalizado numero 1  */
 /* ----------------------------------------------------- */
 .form1-card {
-  margin: auto;
+  margin: 25px auto 35px auto;
   padding: 0;
   background-image: linear-gradient(
     163deg,

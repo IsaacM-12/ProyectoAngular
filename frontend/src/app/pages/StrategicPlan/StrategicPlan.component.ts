@@ -92,9 +92,7 @@ export class StrategicPlanComponent implements OnInit {
   sendData(): void {
     if (this.isEditMode) {
       // Si estamos en modo edición, actualizamos y mandamos a hacer el FODAMECA
-      this.updatePlan().then(() => {
-        this.navigateToFodaMeca();
-      });
+      this.updatePlan();
     } else {
       // Si no, creamos un nuevo plan
       this.createData();
@@ -142,6 +140,8 @@ export class StrategicPlanComponent implements OnInit {
         title: 'Actualizado',
         text: this.responseMessage,
       });
+      this.loadData();
+      this.resetForm();
     } catch (error) {
       this.responseMessage =
         (error as any).error?.message || 'Error desconocido';
