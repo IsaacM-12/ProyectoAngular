@@ -1,12 +1,13 @@
 const router = require("express").Router();
 const {
-  StrategicPlanModel,
+  StrategicPlan,
   validateStrategicPlan,
 } = require("../Models/StrategicPlanModel"); // Importa el modelo StrategicPlanModel
+const { User, validateUser } = require("../Models/UserModel"); // Ajusta la ruta según la ubicación de tu archivo de modelo
 
 router.get("/", async (req, res) => {
   try {
-    const strategicPlans = await StrategicPlanModel.find();
+    const strategicPlans = await StrategicPlan.find();
     res.json(strategicPlans);
   } catch (error) {
     console.error(
@@ -27,7 +28,7 @@ router.post("/", async (req, res) => {
         .status(400)
         .json({ message: error.details[0].message || "Datos inválidos" });
 
-    const newStrategicPlan = new StrategicPlanModel(req.body);
+    const newStrategicPlan = new StrategicPlan(req.body);
     await newStrategicPlan.save();
     res
       .status(201)
@@ -47,7 +48,7 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params; // Obtener el ID del parámetro de la URL
-    const result = await StrategicPlanModel.findByIdAndDelete(id);
+    const result = await StrategicPlan.findByIdAndDelete(id);
     if (!result) {
       return res
         .status(404)
@@ -74,7 +75,7 @@ router.put("/:id", async (req, res) => {
         .status(400)
         .json({ message: error.details[0].message || "Datos inválidos" });
 
-    const updatedStrategicPlan = await StrategicPlanModel.findByIdAndUpdate(
+    const updatedStrategicPlan = await StrategicPlan.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true, runValidators: true }
@@ -101,4 +102,60 @@ router.put("/:id", async (req, res) => {
     });
   }
 });
+
+router.post("/invite", async (req, res) => {
+  const { userId, planId } = req.body;
+
+  if (!userId || !planId) {
+    return res.status(400).json({
+      message: "User ID and Plan ID are required.",
+    });
+  }
+
+  try {
+    // Verificar si el usuario existe
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found.",
+      });
+    }
+
+    // Verificar si el plan existe
+    const plan = await StrategicPlan.findById(planId);
+    if (!plan) {
+      return res.status(404).json({
+        message: "Strategic plan not found.",
+      });
+    }
+
+    // Verificar si ya existe una invitación pendiente para este plan
+    const existingInvitation = user.invitations.find(
+      (inv) => inv.planId.toString() === planId && inv.status === "pending"
+    );
+    if (existingInvitation) {
+      return res.status(400).json({
+        message: "Invitation already exists.",
+      });
+    }
+
+    // Añadir la invitación
+    user.invitations.push({
+      planId,
+      status: "pending",
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Invitation added successfully.",
+    });
+  } catch (error) {
+    console.error("Error adding invitation:", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+});
+
 module.exports = router;

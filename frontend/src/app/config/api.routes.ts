@@ -5,4 +5,5 @@ export const API_ROUTES = {
   INVITATIONS: '/invitations',
   LOGIN: '/auth',
   REGISTER: '/auth',
+  GetAllUsers: '/auth/All-users',
 };

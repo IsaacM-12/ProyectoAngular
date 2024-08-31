@@ -10,6 +10,20 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     strategicPlans_ListIDS: { type: [String], required: false },
+    invitations: [
+      {
+        planId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "StrategicPlan",
+          required: true,
+        },
+        status: {
+          type: String,
+          enum: ["pending", "accepted", "declined"],
+          default: "pending",
+        },
+      },
+    ],
   },
   { strict: "throw" }
 );
@@ -28,6 +42,18 @@ const validateUser = (data) => {
       .items(Joi.string())
       .optional()
       .label("Strategic Plans List IDs"),
+    invitations: Joi.array()
+      .items(
+        Joi.object({
+          planId: Joi.string().required().label("Plan ID"),
+          status: Joi.string()
+            .valid("pending", "accepted", "declined")
+            .default("pending")
+            .label("Status"),
+        })
+      )
+      .optional()
+      .label("Invitations"),
   });
   return schema.validate(data);
 };

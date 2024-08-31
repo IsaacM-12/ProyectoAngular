@@ -56,4 +56,4 @@ const validateStrategicPlan = (data) => {
 const StrategicPlan = mongoose.model("StrategicPlan", strategicPlanSchema);
 
 // Exportación del modelo y la función de validación
-module.exports = { StrategicPlanModel: StrategicPlan, validateStrategicPlan };
+module.exports = { StrategicPlan, validateStrategicPlan };
