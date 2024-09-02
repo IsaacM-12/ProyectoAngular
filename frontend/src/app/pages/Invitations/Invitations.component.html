@@ -18,30 +18,28 @@
   <div *ngIf="!showPlan">
     <div>
       <h3>Invite User</h3>
-      <div class="form1-card">
-        <div class="form1">
-          <form [formGroup]="invitationForm" (ngSubmit)="invite()">
-            <ng-select
-              [items]="usersToInvite"
-              [multiple]="true"
-              [closeOnSelect]="false"
-              [searchable]="true"
-              bindLabel="name"
-              bindValue="id"
-              placeholder="Select users"
-              formControlName="users"
-            >
-            </ng-select>
+      <div style="height: 50%; width: 50%;">
+        <form [formGroup]="invitationForm" (ngSubmit)="invite()">
+          <ng-select
+            [items]="usersToInvite"
+            [multiple]="true"
+            [closeOnSelect]="false"
+            bindLabel="name"
+            bindValue="id"
+            placeholder="Select users"
+            formControlName="users"
+            class="ng-select"
+          >
+          </ng-select>
 
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="!invitationForm.valid"
-            >
-              Invite
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!invitationForm.valid"
+          >
+            Invite
+          </button>
+        </form>
       </div>
     </div>
   </div>
